@@ -19,7 +19,11 @@ public class UsuarioService {
         return repository.eliminarUsuarioPorNombre(nombre);
     }
 
-    public Usuario encontrarUsuarioPorNombre(String nombre){
-        return repository.encontrarUsuarioPorNombre(nombre);
+    public boolean modificarRol(String nombre, Rol nuevoRol) {
+        return repository.actualizarRol(nombre, nuevoRol);
+    }
+
+    public Usuario buscarUsuarioPorNombre(String nombre) {
+        return repository.buscarUsuarioPorNombre(nombre);
     }
 }

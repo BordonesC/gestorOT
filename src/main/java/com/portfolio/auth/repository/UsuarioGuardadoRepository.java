@@ -1,5 +1,6 @@
 package com.portfolio.auth.repository;
 
+import com.portfolio.auth.model.Rol;
 import com.portfolio.auth.model.Usuario;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class UsuarioGuardadoRepository implements UsuarioRepository{
     }
 
     @Override
-    public Usuario encontrarUsuarioPorNombre(String nombre){
+    public Usuario buscarUsuarioPorNombre(String nombre){
         return buscarPorNombre(nombre).orElse(null);
     }
 
@@ -30,5 +31,21 @@ public class UsuarioGuardadoRepository implements UsuarioRepository{
         return buscarPorNombre(nombre)
                 .map(usuarios::remove)
                 .orElse(false);
+    }
+
+    @Override
+    public boolean actualizarRol(String nombre, Rol nuevoRol) {
+        Usuario usuarioExistente = buscarUsuarioPorNombre(nombre);
+        if (usuarioExistente == null) return false;
+
+        reemplazarUsuario(usuarioExistente, new Usuario(nombre, nuevoRol));
+        return true;
+    }
+
+    private void reemplazarUsuario(Usuario anterior, Usuario actualizado) {
+        int index = usuarios.indexOf(anterior);
+        if (index != -1) {
+            usuarios.set(index, actualizado);
+        }
     }
 }
