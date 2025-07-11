@@ -36,6 +36,6 @@ public class UsuarioServiceTest {
         assertTrue(updated,"Rol no actualizado");
         assertEquals(Rol.SUPERVISOR,usuarioService.buscarUsuarioPorNombre("Fernando").getRol());
 
-        //Esta prueba falla porque aún no existen los métodos modificarRol y buscarUsuarioPorNombre
+        //Esta prueba pasa con el código necesario
     }
 }
