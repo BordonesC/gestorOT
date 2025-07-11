@@ -1,5 +1,7 @@
 package com.portfolio.auth.service;
 
+import com.portfolio.auth.model.*;
+import com.portfolio.auth.repository.UsuarioGuardadoRepository;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,8 +16,7 @@ public class UsuarioServiceTest {
         assertEquals("Juan", creado.getNombre());
         assertEquals(Rol.ADMIN, creado.getRol());
 
-        //Esta prueba no compilará porque no existen las clases Usuario, UsuarioService, Rol, ni UsuarioGuardadoRepository.
-
+        //Test ejecuta con le mínimo requerido
     }
 
 }
