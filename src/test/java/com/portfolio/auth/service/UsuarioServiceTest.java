@@ -28,6 +28,5 @@ public class UsuarioServiceTest {
         assertTrue(deleted,"Usuario eliminado");
         assertNull(usuarioService.encontrarUsuarioPorNombre("Ana"),"Usuario no existe");
 
-        //Esta prueba se ejecuta con el requerimiento mínimo
     }
 }

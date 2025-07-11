@@ -3,6 +3,7 @@ package com.portfolio.auth.repository;
 import com.portfolio.auth.model.Usuario;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UsuarioGuardadoRepository implements UsuarioRepository{
     private final List<Usuario> usuarios = new ArrayList<>();
@@ -13,16 +14,21 @@ public class UsuarioGuardadoRepository implements UsuarioRepository{
         return usuario;
     }
 
-    @Override
-    public Usuario encontrarUsuarioPorNombre(String nombre){
+    private Optional<Usuario> buscarPorNombre(String nombre){
         return usuarios.stream()
                 .filter(u -> u.getNombre().equalsIgnoreCase(nombre))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
+    }
+
+    @Override
+    public Usuario encontrarUsuarioPorNombre(String nombre){
+        return buscarPorNombre(nombre).orElse(null);
     }
 
     @Override
     public boolean eliminarUsuarioPorNombre(String nombre){
-        return usuarios.removeIf(u -> u.getNombre().equalsIgnoreCase(nombre));
+        return buscarPorNombre(nombre)
+                .map(usuarios::remove)
+                .orElse(false);
     }
 }
