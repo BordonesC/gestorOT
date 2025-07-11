@@ -14,4 +14,12 @@ public class UsuarioService {
     public Usuario crearUsuario(String nombre, Rol rol){
         return repository.guardar(new Usuario(nombre,rol));
     }
+
+    public boolean eliminarUsuarioPorNombre(String nombre){
+        return repository.eliminarUsuarioPorNombre(nombre);
+    }
+
+    public Usuario encontrarUsuarioPorNombre(String nombre){
+        return repository.encontrarUsuarioPorNombre(nombre);
+    }
 }

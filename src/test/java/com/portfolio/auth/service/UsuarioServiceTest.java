@@ -23,11 +23,11 @@ public class UsuarioServiceTest {
         UsuarioService usuarioService = new UsuarioService(new UsuarioGuardadoRepository());
 
         usuarioService.crearUsuario("Ana",Rol.SUPERVISOR);
-        boolean deleted = usuarioService.eliminarUsuarioPorNombre();
+        boolean deleted = usuarioService.eliminarUsuarioPorNombre("Ana");
 
         assertTrue(deleted,"Usuario eliminado");
         assertNull(usuarioService.encontrarUsuarioPorNombre("Ana"),"Usuario no existe");
 
-        //Esta prueba falla porque elminiarUsuarioPorNombre y encontrarUsuarioPorNombre no existen
+        //Esta prueba se ejecuta con el requerimiento mínimo
     }
 }
