@@ -1,7 +1,7 @@
 package com.portfolio.auth.service;
 
-import com.portfolio.auth.model.Rol;
-import com.portfolio.auth.model.Usuario;
+import com.portfolio.auth.model.*;
+import com.portfolio.auth.repository.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -16,12 +16,12 @@ public class OTServiceTest {
 
         Usuario supervisor = new Usuario("Pedro", Rol.SUPERVISOR);
 
-        when(permisoRepository.tienePermisoParaCrearOT(supervisor)).thenReturn(true);
+        when(permisoRepository.tienePermisosCreacionOT(supervisor)).thenReturn(true);
 
         boolean creada = otService.crearOT(supervisor);
 
         assertTrue(creada,"Error: Usuario con permisos no ha podido crear OT");
-        verify(permisoRepository).tienePermisoParaCrearOT(supervisor);
+        verify(permisoRepository).tienePermisosCreacionOT(supervisor);
     }
 
     @Test
@@ -32,13 +32,12 @@ public class OTServiceTest {
 
         Usuario usuario = new Usuario("Marta", Rol.USUARIO);
 
-        when(permisoRepository.tienePermisoParaCrearOT(usuario)).thenReturn(false);
+        when(permisoRepository.tienePermisosCreacionOT(usuario)).thenReturn(false);
 
-        boolean creada = otService.crearOT(supervisor);
+        boolean creada = otService.crearOT(usuario);
 
-        assertTrue(creada,"Error: Usuario sin permisos ha creado OT");
-        verify(permisoRepository).tienePermisoParaCrearOT(supervisor);
+        assertFalse(creada,"Error: Usuario sin permisos ha creado OT");
+        verify(permisoRepository).tienePermisosCreacionOT(usuario);
     }
 
-    //pruebas en RED, no compilarán porq aún no se crean métodos
 }
