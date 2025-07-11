@@ -22,7 +22,7 @@ public class UsuarioGuardadoRepository implements UsuarioRepository{
     }
 
     @Override
-    public Usuario encontrarUsuarioPorNombre(String nombre){
+    public Usuario buscarUsuarioPorNombre(String nombre){
         return buscarPorNombre(nombre).orElse(null);
     }
 
@@ -34,21 +34,18 @@ public class UsuarioGuardadoRepository implements UsuarioRepository{
     }
 
     @Override
-    public Usuario buscarUsuarioPorNombre(String nombre) {
-        return usuarios.stream()
-                .filter(u -> u.getNombre().equalsIgnoreCase(nombre))
-                .findFirst()
-                .orElse(null);
+    public boolean actualizarRol(String nombre, Rol nuevoRol) {
+        Usuario usuarioExistente = buscarUsuarioPorNombre(nombre);
+        if (usuarioExistente == null) return false;
+
+        reemplazarUsuario(usuarioExistente, new Usuario(nombre, nuevoRol));
+        return true;
     }
 
-    @Override
-    public boolean actualizarRol(String nombre, Rol nuevoRol) {
-        Usuario usuario = buscarUsuarioPorNombre(nombre);
-        if (usuario != null) {
-            usuarios.remove(usuario);
-            usuarios.add(new Usuario(nombre, nuevoRol));
-            return true;
+    private void reemplazarUsuario(Usuario anterior, Usuario actualizado) {
+        int index = usuarios.indexOf(anterior);
+        if (index != -1) {
+            usuarios.set(index, actualizado);
         }
-        return false;
     }
 }

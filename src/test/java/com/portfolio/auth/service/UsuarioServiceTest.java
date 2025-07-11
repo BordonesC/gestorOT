@@ -23,7 +23,7 @@ public class UsuarioServiceTest {
         boolean deleted = usuarioService.eliminarUsuarioPorNombre("Ana");
 
         assertTrue(deleted,"Usuario no eliminado");
-        assertNull(usuarioService.encontrarUsuarioPorNombre("Ana"),"No se ha encontrado usuario");
+        assertNull(usuarioService.buscarUsuarioPorNombre("Ana"),"No se ha encontrado usuario");
 
     }
 
@@ -36,6 +36,5 @@ public class UsuarioServiceTest {
         assertTrue(updated,"Rol no actualizado");
         assertEquals(Rol.SUPERVISOR,usuarioService.buscarUsuarioPorNombre("Fernando").getRol());
 
-        //Esta prueba pasa con el código necesario
     }
 }

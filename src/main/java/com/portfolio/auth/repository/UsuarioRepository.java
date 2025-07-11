@@ -4,8 +4,7 @@ import com.portfolio.auth.model.*;
 
 public interface UsuarioRepository {
         Usuario guardar(Usuario usuario);
-        Usuario encontrarUsuarioPorNombre(String nombre);
-        boolean eliminarUsuarioPorNombre(String nombre);
         Usuario buscarUsuarioPorNombre(String nombre);
+        boolean eliminarUsuarioPorNombre(String nombre);
         boolean actualizarRol(String nombre, Rol nuevoRol);
 }
