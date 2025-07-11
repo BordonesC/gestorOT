@@ -16,7 +16,6 @@ public class UsuarioServiceTest {
         assertEquals("Juan", creado.getNombre());
         assertEquals(Rol.ADMIN, creado.getRol());
 
-        //Test ejecuta con le mínimo requerido
     }
 
 }

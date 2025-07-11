@@ -1,5 +1,7 @@
 package com.portfolio.auth.model;
 
+import java.util.Objects;
+
 public class Usuario {
     private final String nombre;
     private final Rol rol;
@@ -15,5 +17,22 @@ public class Usuario {
 
     public Rol getRol(){
         return rol;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario {nombre='" + nombre + "', rol=" + rol + '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Usuario usuario)) return false;
+        return nombre.equals(usuario.nombre) && rol == usuario.rol;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre, rol);
     }
 }
