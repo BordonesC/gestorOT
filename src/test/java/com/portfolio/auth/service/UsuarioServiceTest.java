@@ -18,4 +18,15 @@ public class UsuarioServiceTest {
 
     }
 
+    @Test
+    void eliminarUsuarioPorNombre(){
+        UsuarioService usuarioService = new UsuarioService(new UsuarioGuardadoRepository());
+
+        usuarioService.crearUsuario("Ana",Rol.SUPERVISOR);
+        boolean deleted = usuarioService.eliminarUsuarioPorNombre("Ana");
+
+        assertTrue(deleted,"Usuario eliminado");
+        assertNull(usuarioService.encontrarUsuarioPorNombre("Ana"),"Usuario no existe");
+
+    }
 }
