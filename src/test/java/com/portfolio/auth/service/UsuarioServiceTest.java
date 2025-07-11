@@ -6,12 +6,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UsuarioServiceTest {
+    UsuarioService usuarioService = new UsuarioService(new UsuarioGuardadoRepository());
 
     @Test
     void crearUsuarioConRol(){
-        UsuarioService userService = new UsuarioService(new UsuarioGuardadoRepository());
-
-        Usuario creado = userService.crearUsuario("Juan", Rol.ADMIN);
+        Usuario creado = usuarioService.crearUsuario("Juan", Rol.ADMIN);
 
         assertEquals("Juan", creado.getNombre());
         assertEquals(Rol.ADMIN, creado.getRol());
@@ -20,13 +19,23 @@ public class UsuarioServiceTest {
 
     @Test
     void eliminarUsuarioPorNombre(){
-        UsuarioService usuarioService = new UsuarioService(new UsuarioGuardadoRepository());
-
         usuarioService.crearUsuario("Ana",Rol.SUPERVISOR);
         boolean deleted = usuarioService.eliminarUsuarioPorNombre("Ana");
 
-        assertTrue(deleted,"Usuario eliminado");
-        assertNull(usuarioService.encontrarUsuarioPorNombre("Ana"),"Usuario no existe");
+        assertTrue(deleted,"Usuario no eliminado");
+        assertNull(usuarioService.encontrarUsuarioPorNombre("Ana"),"No se ha encontrado usuario");
 
+    }
+
+    @Test
+    void modificarRolDeUsuario(){
+        usuarioService.crearUsuario("Fernando",Rol.USUARIO);
+
+        boolean updated = usuarioService.modificarRol("Fernando",Rol.SUPERVISOR);
+
+        assertTrue(updated,"Rol no actualizado");
+        assertEquals(Rol.SUPERVISOR,usuarioService.buscarUsuarioPorNombre("Fernando").getRol());
+
+        //Esta prueba falla porque aún no existen los métodos modificarRol y buscarUsuarioPorNombre
     }
 }
