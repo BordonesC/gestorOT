@@ -12,7 +12,8 @@ public class UsuarioService {
     }
 
     public Usuario crearUsuario(String nombre, Rol rol){
-        return repository.guardar(new Usuario(nombre,rol));
+        Usuario nuevo = new Usuario(nombre, rol);
+        return repository.guardar(nuevo);
     }
 
     public boolean eliminarUsuarioPorNombre(String nombre){

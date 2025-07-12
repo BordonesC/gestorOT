@@ -1,9 +1,10 @@
 package com.portfolio.auth.service;
 
 import com.portfolio.auth.model.*;
-import com.portfolio.auth.repository.UsuarioGuardadoRepository;
+import com.portfolio.auth.repository.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class UsuarioServiceTest {
     UsuarioService usuarioService = new UsuarioService(new UsuarioGuardadoRepository());
@@ -36,5 +37,20 @@ public class UsuarioServiceTest {
         assertTrue(updated,"Rol no actualizado");
         assertEquals(Rol.SUPERVISOR,usuarioService.buscarUsuarioPorNombre("Fernando").getRol());
 
+    }
+
+    @Test
+    void deberiaGuardarUsuarioConRepositorioSqlMockeado() {
+        UsuarioRepository sqlRepoMock = mock(UsuarioRepository.class);
+        UsuarioService service = new UsuarioService(sqlRepoMock);
+
+        Usuario esperado = new Usuario("Martín", Rol.SUPERVISOR);
+        when(sqlRepoMock.guardar(any(Usuario.class))).thenReturn(esperado);
+
+        Usuario resultado = service.crearUsuario("Martín", Rol.SUPERVISOR);
+
+        assertEquals("Martín", resultado.getNombre());
+        assertEquals(Rol.SUPERVISOR, resultado.getRol());
+        verify(sqlRepoMock).guardar(any(Usuario.class));
     }
 }
