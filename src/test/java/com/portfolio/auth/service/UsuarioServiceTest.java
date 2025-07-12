@@ -29,6 +29,13 @@ public class UsuarioServiceTest {
     }
 
     @Test
+    void noDeberiaEliminarUsuarioInexistente() {
+        boolean eliminado = usuarioService.eliminarUsuarioPorNombre("Fantasma");
+
+        assertFalse(eliminado, "Se eliminó un usuario que no existe");
+    }
+
+    @Test
     void modificarRolDeUsuario(){
         usuarioService.crearUsuario("Fernando",Rol.USUARIO);
 
@@ -37,6 +44,20 @@ public class UsuarioServiceTest {
         assertTrue(updated,"Rol no actualizado");
         assertEquals(Rol.SUPERVISOR,usuarioService.buscarUsuarioPorNombre("Fernando").getRol());
 
+    }
+
+    @Test
+    void noDeberiaModificarRolDeUsuarioInexistente() {
+        boolean actualizado = usuarioService.modificarRol("Inexistente", Rol.ADMIN);
+
+        assertFalse(actualizado, "Se actualizó rol de usuario que no existe");
+    }
+
+    @Test
+    void buscarUsuarioInexistenteDebeRetornarNull() {
+        Usuario encontrado = usuarioService.buscarUsuarioPorNombre("Desconocido");
+
+        assertNull(encontrado, "Se encontró un usuario que no debería existir");
     }
 
     @Test
